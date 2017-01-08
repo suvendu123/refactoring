@@ -45,7 +45,7 @@ public class TripServiceTest {
 		List<Trip> trips = service.getTripsByUser(user);
 				
 		assertEquals(1,trips.size());
-		verify(tripDao, times(1)).findTripsByUser(any(User.class));
+		verify(tripDao, times(1)).findTripsByUser(user);
 		verify(userSession, times(1)).getLoggedUser();
 	}
 	
