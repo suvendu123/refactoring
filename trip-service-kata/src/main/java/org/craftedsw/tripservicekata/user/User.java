@@ -26,4 +26,10 @@ public class User {
 		return trips;
 	}
 
+	public boolean isFriend(User user) {
+		return friends.stream().anyMatch(friend -> friend.equals(user));
+		
+	}
+	
+
 }
