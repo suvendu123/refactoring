@@ -6,12 +6,19 @@ import java.util.List;
 import org.craftedsw.tripservicekata.exception.UserNotLoggedInException;
 import org.craftedsw.tripservicekata.user.User;
 import org.craftedsw.tripservicekata.user.UserSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class TripService {
+	
+	@Autowired
+	private UserSession userSession;
+	
+	@Autowired
+	private TripDAO tripDao;
 
 	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
 		List<Trip> tripList = new ArrayList<Trip>();
-		User loggedUser = UserSession.getInstance().getLoggedUser();
+		User loggedUser = userSession.getLoggedUser();
 		boolean isFriend = false;
 		if (loggedUser != null) {
 			for (User friend : user.getFriends()) {
@@ -21,7 +28,7 @@ public class TripService {
 				}
 			}
 			if (isFriend) {
-				tripList = TripDAO.findTripsByUser(user);
+				tripList = tripDao.findTripsByUser(user);
 			}
 			return tripList;
 		} else {
